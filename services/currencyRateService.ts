@@ -8,6 +8,12 @@ export interface CurrencyRateResponse {
   updatedAt: string;
 }
 
+export interface FiatCurrency {
+  code: string;
+  symbol?: string;
+  name?: string;
+}
+
 export const currencyRateService = {
   async getXlmRate(fiat: string): Promise<CurrencyRateResponse> {
     const { data } = await axios.get<CurrencyRateResponse>(
@@ -27,5 +33,14 @@ export const currencyRateService = {
     }
 
     return data;
+  },
+
+  async getSupportedCurrencies(): Promise<FiatCurrency[]> {
+    const response = await fetch(`${API_BASE_URL}/api/rates/currencies`);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch currencies: ${response.status}`);
+    }
+    const data = await response.json();
+    return Array.isArray(data) ? data : data.currencies ?? [];
   },
 };

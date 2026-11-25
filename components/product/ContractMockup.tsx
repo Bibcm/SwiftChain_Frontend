@@ -12,6 +12,7 @@ import { useMemo } from 'react';
 import Prism from 'prismjs';
 import 'prismjs/components/prism-solidity';
 import 'prismjs/components/prism-typescript';
+import 'prismjs/themes/prism.css';
 import { Copy, Check, AlertCircle } from 'lucide-react';
 import { useContractMockup } from '@/hooks/useContractMockup';
 import './ContractMockup.css';
